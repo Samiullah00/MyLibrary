@@ -10,6 +10,7 @@ const bodyParser = require('body-parser')
 
 const indexRoute = require('./routes/index')
 const authorRoute = require('./routes/author')
+const bookRoute = require('./routes/book')
 
 const port = process.env.PORT || 3000
 
@@ -28,6 +29,7 @@ db.once('open', () => console.log('Connected to Mongoose'))
 
 app.use('/', indexRoute)
 app.use('/authors', authorRoute)
+app.use('/books', bookRoute)
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`)
