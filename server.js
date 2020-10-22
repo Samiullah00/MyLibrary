@@ -7,6 +7,7 @@ const app = express()
 const expressLayouts = require('express-ejs-layouts')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
 
 const indexRoute = require('./routes/index')
 const authorRoute = require('./routes/author')
@@ -18,6 +19,7 @@ app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
 app.set('layout', 'layouts/layout')
 app.use(expressLayouts)
+app.use(methodOverride('_method'))
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: false }))
 
@@ -30,6 +32,7 @@ db.once('open', () => console.log('Connected to Mongoose'))
 app.use('/', indexRoute)
 app.use('/authors', authorRoute)
 app.use('/books', bookRoute)
+app.use(methodOverride('_method'))
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`)
